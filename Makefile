@@ -6,7 +6,7 @@ SINGULARITY_IMAGE_NAME = casa.sif
 
 all: docker_build singularity_convert download_casa
 
-download_casa: casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz
+casa-6.4.1-12-pipeline-2022.2.0.64:
 	wget https://casa.nrao.edu/download/distro/casa-pipeline/release/linux/casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz
 
 # Build Docker container

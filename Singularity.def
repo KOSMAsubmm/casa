@@ -18,7 +18,7 @@ From: ubuntu:22.04
     rm -rf /var/lib/apt/lists/*
 
     # Download and extract casa-pipeline software (assuming it's available at the build location)
-    cp /path/on/host/casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz .
+    cp casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz .
     tar -xvf casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz
     rm casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz
     chown -R casa:casa casa-6.4.1-12-pipeline-2022.2.0.64
@@ -27,4 +27,4 @@ From: ubuntu:22.04
     exec ../casa-6.4.1-12-pipeline-2022.2.0.64/bin/casa "$@"
 
 %files
-    /path/on/host/casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz /casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz
+    casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz /casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz

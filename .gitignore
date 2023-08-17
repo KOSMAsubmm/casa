@@ -1,3 +1,6 @@
 casa-*.tar.xz
 test/*
 *.tar.xz
+*.sif
+sis*
+plotms*

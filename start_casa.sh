@@ -1,2 +1,2 @@
 xhost +local:docker
-docker run --rm -ti --net=host --ipc=host -e DISPLAY=$DISPLAY -v $PWD:/data -v /tmp/.X11-unix:/tmp/.X11-unix --env="QT_X11_NO_MITSHM=1" --cap-add SYS_ADMIN --device /dev/fuse --privileged optimized_casa:latest /casa-6.4.1-12-pipeline-2022.2.0.64/bin/mpicasa -n 16  /casa-6.4.1-12-pipeline-2022.2.0.64/bin/casa --pipeline
+docker run --rm -ti --net=host --ipc=host -e DISPLAY=$DISPLAY -v $PWD:/data -v /tmp/.X11-unix:/tmp/.X11-unix --env="QT_X11_NO_MITSHM=1" --cap-add SYS_ADMIN --device /dev/fuse --privileged optimized_casa:latest

@@ -9,6 +9,9 @@ all: docker_build singularity_convert download_casa
 casa-6.4.1-12-pipeline-2022.2.0.64:
 	wget https://casa.nrao.edu/download/distro/casa-pipeline/release/linux/casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz
 
+casa-6.2.1-7-pipeline-2021.2.0.128:
+	wget https://casa.nrao.edu/download/distro/casa-pipeline/release/linux/casa-6.2.1-7-pipeline-2021.2.0.128.tar.xz
+
 # Build Docker container
 docker_build:
 	docker build -t $(DOCKER_IMAGE_NAME):$(DOCKER_TAG) -f Dockerfile .

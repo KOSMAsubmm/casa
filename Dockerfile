@@ -17,14 +17,14 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/*
 
 # Download and extract casa-pipeline software
-COPY casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz .
+COPY casa-6.2.1-7-pipeline-2021.2.0.128.tar.xz .
 
-RUN tar -xvf casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz && \
-    rm casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz
+RUN tar -xvf casa-6.2.1-7-pipeline-2021.2.0.128.tar.xz && \
+    rm casa-6.2.1-7-pipeline-2021.2.0.128.tar.xz
 
 # Set working directory and permissions
-RUN chown -R casa:casa casa-6.4.1-12-pipeline-2022.2.0.64
+RUN chown -R casa:casa casa-6.2.1-7-pipeline-2021.2.0.128
 WORKDIR /data
 
 USER casa
-CMD ["../casa-6.4.1-12-pipeline-2022.2.0.64/bin/casa"]
+CMD ["../casa-6.2.1-7-pipeline-2021.2.0.128/bin/casa"]

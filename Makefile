@@ -1,38 +1,26 @@
 
-# Variables
-DOCKER_IMAGE_NAME = optimized_casa
-DOCKER_TAG = latest
-SINGULARITY_IMAGE_NAME = casa.sif
+all: casa_6.2.1.sif casa_6.4.1_pipeline.sif
 
-all: docker_build singularity_convert download_casa
-
-casa-6.4.1-12-pipeline-2022.2.0.64:
+casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz:
 	wget https://casa.nrao.edu/download/distro/casa-pipeline/release/linux/casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz
 
-casa-6.2.1-7-pipeline-2021.2.0.128:
+casa-6.2.1-7-pipeline-2021.2.0.128.tar.xz:
 	wget https://casa.nrao.edu/download/distro/casa-pipeline/release/linux/casa-6.2.1-7-pipeline-2021.2.0.128.tar.xz
 
-# Build Docker container
-docker_build:
-	docker build -t $(DOCKER_IMAGE_NAME):$(DOCKER_TAG) -f Dockerfile .
+uvmcmcfit:
+	git clone https://github.com/AstroAaron/uvmcmcfit.git
 
-# Convert Docker container to Singularity image
-singularity_convert:
-	singularity build $(SINGULARITY_IMAGE_NAME) docker-daemon://$(DOCKER_IMAGE_NAME):$(DOCKER_TAG)
+casa_6.2.1.sif: uvmcmcfit casa-6.2.1-7-pipeline-2021.2.0.128.tar.xz
+	sudo singularity build casa_6.2.1.sif casa_6.2.1_singularity.def 
+
+casa_6.4.1_pipeline.sif: casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz
+	sudo singularity build casa_6.4.1.sif casa_6.4.1_singularity.def 
 
 clean:
-	docker rmi $(DOCKER_IMAGE_NAME):$(DOCKER_TAG)
-	rm -f $(SINGULARITY_IMAGE_NAME)
+	rm -rf uvmcmcfit/
+	rm -f casa_6.4.1.sif
+	rm -f casa_6.2.1.sif
+	rm -f casa-6.2.1-7-pipeline-2021.2.0.128.tar.xz
+	rm -f casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz
 
-.PHONY: all docker_build singularity_convert clean
 
-# Variables for local registry
-LOCAL_REGISTRY = meet.batleth.ph1.uni-koeln.de
-DOCKER_IMAGE_REGISTRY_NAME = $(LOCAL_REGISTRY)/$(DOCKER_IMAGE_NAME)
-
-# Push to local registry
-push_to_registry:
-	docker tag $(DOCKER_IMAGE_NAME):$(DOCKER_TAG) $(DOCKER_IMAGE_REGISTRY_NAME):$(DOCKER_TAG)
-	docker push $(DOCKER_IMAGE_REGISTRY_NAME):$(DOCKER_TAG)
-
-.PHONY: push_to_registry

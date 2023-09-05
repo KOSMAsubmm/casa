@@ -37,3 +37,41 @@ The Makefile contains several targets for building and running the CASA containe
 2. Run `make all` to build both Singularity images.
 3. Use the `.sif` files as needed for your CASA tasks.
 
+
+## Running the CASA Containers
+
+To run the Singularity containers for the respective CASA versions, you can use the following commands:
+
+### CASA Version 6.4.1
+
+```bash
+singularity run casa_6.4.1.sif
+```
+
+### CASA Version 6.2.1
+
+```bash
+singularity run casa_6.2.1.sif
+```
+
+## Working with Data
+
+Singularity automatically mounts the current working directory (PWD) inside the container at the same path. This allows you to easily access and work with your local data.
+
+## Best Practices for Running Alternative Commands
+
+### Overriding the CASA Command
+
+To run an external script using CASA, you can use the `-c` flag like so:
+
+```bash
+singularity exec casa_6.4.1.sif casa -c 'execfile("your_script.py")'
+```
+
+### Running Custom Commands
+
+You can run any command inside the container by prefixing it with `singularity exec`:
+
+```bash
+singularity exec casa_6.4.1.sif your_command
+```

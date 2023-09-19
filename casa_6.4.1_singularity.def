@@ -5,6 +5,8 @@ From: ubuntu:22.04
 %environment
     export LC_ALL=C
     export PATH=/usr/local/casa-6.4.1-12-pipeline-2022.2.0.64/bin:$PATH
+    export FLUX_SERVICE_URL="https://almascience.org/sc/flux"
+    export FLUX_SERVICE_URL_BACKUP="https://asa.alma.cl/sc/flux"
 
 
 %post

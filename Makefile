@@ -19,6 +19,8 @@ casa_6.4.1_pipeline.sif: casa-6.4.1-12-pipeline-2022.2.0.64-py3.6.tar.xz casa_6.
 deploy_mekleth: casa_6.2.1.sif
 	cp casa_6.2.1.sif /opt/casa_container/
 	cp start_casa_6.2.1.sh /usr/bin/start_casa_6.2.1.sh
+	chmod a+rw /usr/bin/start_casa_6.2.1.sh
+	chmod a+rw /opt/casa_container/casa_6.2.1.sif
 
 clean:
 	rm -rf uvmcmcfit/

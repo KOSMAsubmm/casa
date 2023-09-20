@@ -8,4 +8,4 @@ SINGULARITYENV_LANGUAGE=$LANGUAGE \
 SINGULARITYENV_LC_ALL=$LC_ALL \
 SINGULARITYENV_LC_CTYPE=$LC_CTYPE \
 # Run the Singularity container
-singularity run /opt/casa_container/casa_6.2.1.sif
+singularity run --bind $PWD:/data --pwd /data /opt/casa_container/casa_6.2.1.sif

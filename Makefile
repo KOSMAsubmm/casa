@@ -28,7 +28,6 @@ deploy_mekleth_6.4.1: casa_6.4.1.sif
 	chmod a+rw /usr/bin/start_casa_6.4.1.sh
 	chmod a+rw /opt/casa_container/casa_6.4.1.sif
 
-
 clean:
 	rm -rf uvmcmcfit/
 	rm -f casa_6.4.1.sif

@@ -1,0 +1,55 @@
+
+Bootstrap: docker
+From: ubuntu:22.04
+
+%environment
+    export LC_ALL=C
+    export PATH=/usr/local/casa-6.5.4-9-pipeline-2023.1.0.124/bin:$PATH
+    export FLUX_SERVICE_URL="https://almascience.org/sc/flux"
+    export FLUX_SERVICE_URL_BACKUP="https://asa.alma.cl/sc/flux"
+
+
+%post
+    # Setting up the environment variable for non-interactive mode
+    export DEBIAN_FRONTEND=noninteractive
+
+    # Create user and group
+    mkdir /home/casa
+
+    # Install necessary tools and libraries
+    apt update
+    apt install -y wget xz-utils fuse xserver-xorg-dev sqlite git libxext-dev libx11-6 libfontconfig1 libsm-dev xserver-xorg libgtk-3-dev libfuse2 python3-pip firefox xvfb imagemagick
+    rm -rf /var/lib/apt/lists/*
+
+    cd /usr/local/
+
+    # Download and extract casa-pipeline software (assuming it's available at the build location)
+    tar -xvf casa-6.5.4-9-pipeline-2023.1.0.124-py3.8.tar.xz
+    rm casa-6.5.4-9-pipeline-2023.1.0.124-py3.8.tar.xz
+
+    #The above casa installation contains three AppImage files
+    #AppImages only work within singularity containers if they are unpacked
+    #The following replaces the three packed AppImages with unpacked versions
+    cd /usr/local/casa-6.5.4-9-pipeline-2023.1.0.124/lib/py/lib/python3.8/site-packages/casaplotms/__bin__/
+    ./casaplotms-x86_64.AppImage --appimage-extract
+    chmod -R 755 /usr/local/casa-6.5.4-9-pipeline-2023.1.0.124/lib/py/lib/python3.8/site-packages/casaplotms/__bin__/squashfs-root/
+    rm ./casaplotms-x86_64.AppImage
+    ln -s ./squashfs-root/AppRun ./casaplotms-x86_64.AppImage
+
+    cd /usr/local/casa-6.5.4-9-pipeline-2023.1.0.124/lib/py/lib/python3.8/site-packages/casaplotserver/__bin__/
+    ./casaplotserver-x86_64.AppImage --appimage-extract
+    chmod -R 755 /usr/local/casa-6.5.4-9-pipeline-2023.1.0.124/lib/py/lib/python3.8/site-packages/casaplotserver/__bin__/squashfs-root/
+    rm ./casaplotserver-x86_64.AppImage
+    ln -s ./squashfs-root/AppRun ./casaplotserver-x86_64.AppImage
+
+    cd /usr/local/casa-6.5.4-9-pipeline-2023.1.0.124/lib/py/lib/python3.8/site-packages/casaviewer/__bin__/
+    ./casaviewer-x86_64.AppImage --appimage-extract
+    chmod -R 755 /usr/local/casa-6.5.4-9-pipeline-2023.1.0.124/lib/py/lib/python3.8/site-packages/casaviewer/__bin__/squashfs-root
+    rm ./casaviewer-x86_64.AppImage
+    ln -s ./squashfs-root/AppRun ./casaviewer-x86_64.AppImage
+
+%runscript
+    mpicasa -n 16 casa --pipeline 
+
+%files
+    casa-6.5.4-9-pipeline-2023.1.0.124-py3.8.tar.xz /usr/local/casa-6.5.4-9-pipeline-2023.1.0.124-py3.8.tar.xz

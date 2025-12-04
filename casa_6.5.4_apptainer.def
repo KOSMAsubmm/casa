@@ -28,7 +28,7 @@ From: ubuntu:22.04
     rm casa-6.5.4-9-pipeline-2023.1.0.124-py3.8.tar.xz
 
     #The above casa installation contains three AppImage files
-    #AppImages only work within singularity containers if they are unpacked
+    #AppImages only work within apptainer containers if they are unpacked
     #The following replaces the three packed AppImages with unpacked versions
     cd /usr/local/casa-6.5.4-9-pipeline-2023.1.0.124/lib/py/lib/python3.8/site-packages/casaplotms/__bin__/
     ./casaplotms-x86_64.AppImage --appimage-extract

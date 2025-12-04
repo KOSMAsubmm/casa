@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Ensure local access to the X server
@@ -8,4 +7,5 @@ APPTAINERENV_LANGUAGE=$LANGUAGE \
 APPTAINERENV_LC_ALL=$LC_ALL \
 APPTAINERENV_LC_CTYPE=$LC_CTYPE \
 # Run the Apptainer container
-apptainer run --bind $PWD:/data --pwd /data /opt/casa_container/casa_6.2.1.sif
+apptainer run --bind $PWD:/data --pwd /data /opt/casa_container/casa_6.5.4.sif
+
